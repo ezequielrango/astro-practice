@@ -1,15 +1,14 @@
 ---
-import { GetStaticPaths } from "astro";
+import type { GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import BuyButton from "../../components/BuyButton.astro"
 
 export async function getStaticPaths() {
 
     const books = await getCollection("books");
 
     return books.map((book) => ({
-        params: {id: book.slug},
+      params: { id: book.slug }, // Se utiliza 'slug' directamente de 'book'
         props: {book}
     }))
 }
@@ -17,7 +16,7 @@ export async function getStaticPaths() {
 const {book} = Astro.props
 
 const {data} = book
-const {title, author, img, readtime, description, buy, slug} = data
+const {title, author, img, readtime, description, buy} = data
 
 const { Content } = await render(book)
 ---
@@ -25,10 +24,10 @@ const { Content } = await render(book)
     <div class="flex gap-12">
       <aside class="flex flex-col items-center gap-4">
         <a href='/' class="hover:underline opacity-70">← Volver atrás</a>
-        <img transition:name={`img-${slug}`} class="rounded w-72 h-auto" src={`/books/${img}`} alt={title} />
+        <img transition:name={`img-${book.slug}`} class="rounded w-72 h-auto" src={`/books/${img}`} alt={title} />
       </aside>
       <main class="max-w-3xl">
-        <h1 transition:name={`title-${slug}`} class="text-4xl font-bold mb-4">{title}</h1>
+        <h1 transition:name={`title-${book.slug}`} class="text-4xl font-bold mb-4">{title}</h1>
         <div class="prose prose-invert">
           <Content />
         </div>
