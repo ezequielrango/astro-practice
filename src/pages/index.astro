@@ -8,10 +8,7 @@ const books = await getCollection('books');
 
 <Layout title="Data science books">
 	<main>
-		<h1 class="text-center font-extrabold mb-24">Data science<span class="block">recommended books</span> </h1>
-		
-
-
+		<h1 class="text-center font-extrabold mb-24">Data science<span class="block">recommended books 📚</span> </h1>
 	<section>
 		<div class="px-4 mx-auto max-w-screen-xl">
 			<div class="grid gap-6 md:grid-cols-2 ">
@@ -22,12 +19,16 @@ const books = await getCollection('books');
 
 						return (
 							<article class="flex">
-								<a href={`/book/${slug}`} class="mb-2 xl:mb-0 transition hover:scale-110">
-								<img src={`/books/${img}`} alt={title} class="mr-5 w-48 rounded" />
+								<a href={`/book/${slug}`} class="mb-2 flex align-middle  xl:mb-0 transition hover:scale-110">
+								<img 
+									transition:name={`img-${slug}`}
+									src={`/books/${img}`} 
+									alt={title} 
+									class="mr-5 w-48 rounded" />
 								</a>
 
-								<div class="flex flex-col justify-center">
-									<h2 class="mb-2 text-2xl font-bold leading-tight text-white"> {title} </h2>
+								<div class="flex flex-col justify-start ml-3">
+									<h2 transition:name={`title-${slug}`} class="mb-2 text-2xl font-bold leading-tight text-white"> {title} </h2>
 								<p class="mb-4 text-sm text-gray-300 max-w-sm">{description}</p>
 								<span class="text-xs"> Read in {readtime} minutes</span>
 								</div>
